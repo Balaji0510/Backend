@@ -1,26 +1,14 @@
-
 from pyspark.sql import SparkSession
-from pyspark.sql.functions import col, sum
 
-# ✅ Create Spark session
-spark = SparkSession.builder.appName("SalesAnalytics").getOrCreate()
+spark = SparkSession.builder.appName("SalesDataProcessor").getOrCreate()
 
-# ✅ Use correct relative path (from project root)
-input_path = "../Data/sales_data.csv"
-output_path = "../Output/"
+df = spark.read.csv("Data/sample_sales.csv", header=True, inferSchema=True)
 
-# ✅ Read the CSV file
-df = spark.read.csv(input_path, header=True, inferSchema=True)
+df = df.withColumn("total", df["quantity"] * df["price"])
 
-# ✅ Data transformation
-df = df.withColumn("total_amount", col("quantity") * col("unit_price"))
+df.groupBy("product").sum("total")
 
-df_grouped = df.groupBy("product").agg(
-    sum("quantity").alias("total_quantity"),
-    sum("total_amount").alias("total_sales")
-)
+# Save output
+df.write.mode("overwrite").option("header", "true").csv("Output/transformed_sales.csv")
 
-# ✅ Write output
-df_grouped.coalesce(1).write.mode("overwrite").option("header", "true").csv(output_path)
-
-print("✅ PySpark job completed successfully. Check Output/ folder.")
+spark.stop()

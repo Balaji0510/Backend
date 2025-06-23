@@ -1,6 +1,5 @@
-date,region,product,quantity,unit_price
-2024-06-01,East,Chocolate,20,2.5
-2024-06-02,West,Cookies,30,1.5
-2024-06-03,North,Chocolate,15,2.5
-2024-06-04,South,Candy,40,1.0
-2024-06-05,East,Cookies,10,1.5
+order_id,product,quantity,price
+1,Apple,10,2.5
+2,Banana,5,1.2
+3,Orange,8,1.8
+4,Apple,3,2.5
