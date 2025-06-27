@@ -27,7 +27,7 @@ jobs:
         run: |
           python Resource/Notebook/process_sales_data.py
 
-            - name: Run Unit Tests with Coverage
+      - name: Run Unit Tests with Coverage
         run: |
           pytest Test/ --cov=Resource/Notebook/ --cov-report=xml
 
