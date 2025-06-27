@@ -1,2 +1,2 @@
+# Requires Python 3.9 or higher
 pyspark
-Python 3.9+
