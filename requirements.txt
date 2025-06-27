@@ -1,2 +1,4 @@
 # Requires Python 3.9 or higher
 pyspark
+pytest
+pytest-cov
