@@ -1,5 +1,5 @@
-order_id,product,quantity,price
-1,Apple,10,2.5
-2,Banana,5,1.2
-3,Orange,8,1.8
-4,Apple,3,2.5
+Date,Product,Sales
+2024-01-01,A,100
+2024-01-01,B,200
+2024-01-02,A,150
+2024-01-02,C,300

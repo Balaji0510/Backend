@@ -1,14 +1,16 @@
 from pyspark.sql import SparkSession
+from pyspark.sql.functions import sum
 
-spark = SparkSession.builder.appName("SalesDataProcessor").getOrCreate()
+# Create a Spark session
+spark = SparkSession.builder.appName("SalesProcessing").getOrCreate()
 
-df = spark.read.csv("Data/sample_sales.csv", header=True, inferSchema=True)
+# Read input CSV
+df = spark.read.csv("Data/sales_data.csv", header=True, inferSchema=True)
 
-df = df.withColumn("total", df["quantity"] * df["price"])
+# Group by Product and sum Sales
+result = df.groupBy("Product").agg(sum("Sales").alias("Total_Sales"))
 
-df.groupBy("product").sum("total")
-
-# Save output
-df.write.mode("overwrite").option("header", "true").csv("Output/transformed_sales.csv")
+# Write output
+result.coalesce(1).write.csv("Output/transformed_sales.csv", header=True, mode="overwrite")
 
 spark.stop()
